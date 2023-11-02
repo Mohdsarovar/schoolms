@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import Userdob from './User.dob'
 // import '../src/style/style.css/sarwar'
+// import '../src/style/style.css/ yunus'
+
 
 const StudentList = () => {
     const[values,setValues] = useState({
