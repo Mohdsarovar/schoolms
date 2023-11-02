@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import Userdob from './User.dob'
-// import '../src/style/style.css'
+// import '../src/style/style.css/sarwar'
 
 const StudentList = () => {
     const[values,setValues] = useState({
