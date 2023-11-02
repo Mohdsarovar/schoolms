@@ -1,0 +1,229 @@
+
+=======================================================================================================
+Name: Sarovar       Date: 2023-10-20
+Description :   create three table like student_info,attendance_record , log
+
+
+Database
+    student_info
+        student_info_id - int(11) auto_increment 
+        roll_no - varchar(8)
+        email - varchar(50)
+        mobile - INT(11)
+        full_name - VARCHAR(50)
+        dob - DATETIME
+        status - enum(ACTIVE, SUSPENDED, TERMINTATED)
+        created_at - timestmap
+        updated_at - timestmap
+
+    attendance_record
+        attendance_record_id
+        student_info_id
+        status - enum(present,absent)
+        created_at - timestmap
+        updated_at - timestmap
+
+    log
+        log_id AI PK not null
+        action - ADD_STUDENT varchar(50)
+        request - {} longtext
+        response - {} longtext
+        created_at - timestamp
+
+API
+    List API of attendance mark
+
+
+
+=======================================================================================================
+Name: Sarovar       Date: 2023-10-20
+Description :   add students 
+
+INSERT INTO student_info(
+    student_info_id,
+    roll_no,
+    email,
+    mobile,
+    full_name,
+    dob,
+    status,
+    created_at,
+    updated_at
+)
+VALUES(
+    NULL,
+    'st001',
+    's@gmail.com',
+    '999999',
+    'sarovar absul shaikh',
+    '10-10-2023',
+    'ACTIVE',
+    '2023-10-16 11:46:17',
+    '2023-10-16 06:36:17'
+);
+
+
+
+=======================================================================================================
+Name: Sarovar       Date: 2023-10-22
+Description :   check marked attendance
+
+INSERT INTO attendance_record(
+    attendance_record_id,
+    student_info_id,
+    status,
+    created_at,
+    updated_at
+)
+VALUES(
+    NULL,
+    '3',
+    'present'
+);
+
+=======================================================================================================
+Name: Sarovar       Date: 2023-10-22
+Description :   --------------------------------
+
+SELECT
+    si.student_info_id,
+    si.roll_no,
+    si.email,
+    si.mobile,
+    si.full_name,
+    si.dob,
+    si.status AS student_status,
+    ar.attendance_record_id,
+    ar.status AS attendance_status,
+    ar.created_at AS attendance_created_at
+FROM
+    student_info si
+LEFT JOIN
+    attendance_record ar
+ON
+    si.student_info_id = ar.student_info_id; 
+
+
+
+=======================================================================================================
+Name: Sarovar       Date: 2023-10-22
+Description :   search or sort base on attendance
+
+SELECT
+    si.student_info_id,
+    si.roll_no,
+    si.email,
+    si.mobile,
+    si.full_name,
+    si.dob,
+    si.status AS student_status,
+    ar.attendance_record_id,
+    ar.status AS attendance_status,
+    ar.created_at AS attendance_created_at
+FROM
+    student_info si
+LEFT JOIN
+    attendance_record ar
+ON
+    si.student_info_id = ar.student_info_id
+WHERE
+    ar.status = 'present';
+
+
+=======================================================================================================
+Name: Sarovar       Date: 2023-10-22
+Description :   search data with their name ,dob , emailId,mobil
+
+SELECT
+    si.student_info_id,
+    si.roll_no,
+    si.email,
+    si.mobile,
+    si.full_name,
+    si.dob,
+    si.status AS student_status,
+    ar.attendance_record_id,
+    ar.status AS attendance_status,
+    ar.created_at AS attendance_created_at
+FROM
+    student_info si
+LEFT JOIN
+    attendance_record ar
+ON
+    si.student_info_id = ar.student_info_id
+WHERE
+    si.full_name = 'sarovar absul shaikh' OR si.dob = ' ' OR si.mobile = ' ' OR si.email = ' ';
+
+
+============= NOT USE This   We use a DELETE statement with two table references (si and ar)
+ to indicate that we want to delete data from both the student_info and attendance_record tables  =============
+
+
+=======================================================================================================
+Name: Sarovar       Date: 2023-10-27
+Description :   Data insert into log table
+
+ INSERT INTO log(
+    log_id,
+    action,
+    request,
+    responce,
+    created_at
+) VALUES(
+    'Null',
+    'add',
+    '{"roll_no":"0008","email":"r@gmail.com","mobile":999999,"full_name":"Ramroa mane ","dob":"10-10-1984","status":"SUSPENDED"}'
+,
+    '',
+    '2023-10-27T06:25:54.823Z'
+
+)
+
+
+=======================================================================================================
+Name: Sarovar       Date: 2023-10-27
+Description :   fetch data of attendance date-wise
+
+SELECT
+    si.student_info_id,
+    si.roll_no,
+    si.email,
+    si.mobile,
+    si.full_name,
+    si.dob,
+    ar.status AS attendance_status,
+    ar.created_at AS attendance_date
+FROM
+    student_info si
+LEFT JOIN
+    attendance_record ar
+ON
+    si.student_info_id = ar.student_info_id
+WHERE
+    si.student_info_id = '3'// provide student_info_id of student
+ORDER BY
+    ar.created_at;
+
+
+=======================================================================================================
+Name: Sarovar       Date: 2023-10-28
+Description :   search student with their name,email,dob and mobile
+
+
+SELECT COUNT(full_name) FROM student_info WHERE  full_name LIKE '% shaikh%';
+
+SELECT * FROM student_info 
+WHERE  full_name LIKE '%${full_name}%' AND email LIKE '%${email}%' AND dob LIKE '%${dob}%' AND mobile LIKE '%${mobile}%'`;
+
+
+=======================================================================================================
+Name: Sarovar       Date: 2023-10-28
+Description :   sort base on attendance like present or absent of one student with their data
+
+
+SELECT si.student_info_id, si.roll_no, si.email, si.mobile, si.full_name, si.dob,si.status As student_status, ar.status AS attendance_status, ar.created_at AS attendance_date
+FROM student_info si
+LEFT JOIN attendance_record ar
+ON si.student_info_id = ar.student_info_id 
+WHERE si.student_info_id = '3' AND ar.status = 'present' 
+ORDER BY ar.created_at;

@@ -1,0 +1,40 @@
+========= Nov 01-11-2023==========
+work Done:==>
+1. dashaboard has been done
+2 .logout
+3. Testing API
+3. Date of birth proper formate on frontend
+5.Git & Github setup 
+
+
+in Progress:==>
+1. Search with filter,
+
+Queries regarding task:==>
+1. Search with filter,
+
+
+Will come==> :
+1. Prashant Sir will be discuss with regarding project
+
+========= Nov 02-11-2023==========
+work Done:==>
+1. dashaboard has been done
+2 .logout
+3. Testing API
+4. Date of birth proper formate on frontend
+
+
+in Progress:==>
+1. Search with filter,
+
+Queries regarding task:==>
+1. Search with filter, ask to Mazz
+
+
+Will come==> :
+1. Prashant Sir will be discuss with regarding project
+2. Adnan Bhai will be mentioned with regarding project
+
+
+
