@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import Userdob from './User.dob'
+// import '../src/style/style.css'
 
 const StudentList = () => {
     const[values,setValues] = useState({
@@ -90,6 +91,7 @@ const StudentList = () => {
         </div>
       <div className='d-flex justify-content-center align-items-center m-5'>
       
+      <div className="table-container">
       <table className='table table-bordered border-primary'>
             <thead>
            <tr>
@@ -131,6 +133,8 @@ const StudentList = () => {
                 </tbody>
            
         </table>
+      </div>
+     
       </div>
     </div>
   )
