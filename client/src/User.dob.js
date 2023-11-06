@@ -1,6 +1,7 @@
 import React from 'react'
+let dateFormate={}
 
-const Userdob = ({dob}) => {
+dateFormate.Userdob = ({dob}) => {
     const formattedDob = new Date(dob).toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
@@ -9,4 +10,4 @@ const Userdob = ({dob}) => {
   return <td>{formattedDob}</td>
 }
 
-export default Userdob
+export default dateFormate

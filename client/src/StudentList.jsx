@@ -1,11 +1,8 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
-import Userdob from './User.dob'
-// import '../src/style/style.css/sarwar'
-// import '../src/style/style.css/ yunus'
-
-
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import dateFormate from './User.dob'
+import '../src/style/style.css'
 const StudentList = () => {
     const[values,setValues] = useState({
         full_name:"",
@@ -15,11 +12,18 @@ const StudentList = () => {
       
     
       })
-      const{full_name,email,dob,mobile}= useParams()
-      console.log(full_name,email,dob,mobile);
+    //   const{full_name,email,dob,mobile}= useParams()
+    //   console.log(full_name,email,dob,mobile);
       console.log(values);
     const[data,setData]= useState([])
-    const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhcm92YXIiLCJpYXQiOjE2OTg2NTkxMTN9.HzBBzCVWYrkAoczpbgYoGj_ypaB5t5MX05mczFRA9VI"
+    const navigate = useNavigate()
+    const token = localStorage.getItem('token');
+    useEffect(()=>{
+  if(!token){
+    navigate('/')
+  }
+    },[navigate,token])
+    // const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhcm92YXIiLCJpYXQiOjE2OTg2NTkxMTN9.HzBBzCVWYrkAoczpbgYoGj_ypaB5t5MX05mczFRA9VI"
     
     const headers = {
       'Authorization': `${token}`,
@@ -28,7 +32,7 @@ const StudentList = () => {
     const handleSearchStudent=(event)=>{
         event.preventDefault()
         
-        axios.get("http://localhost:9000/api/student/getDetailsList",values,{headers})
+        axios.get("http://localhost:9000/api/student/getDetailsList",{values},{headers})
         .then((response)=>{setData(response.data.result)
             // console.log('studentList',response);
 
@@ -49,7 +53,7 @@ const StudentList = () => {
         .catch((err)=>{
             console.log(err);
         })
-    },[])
+    },[]);
     const handleDelete=(id)=>{
         axios.delete(`http://localhost:9000/api/student/delete/${id}`,{headers})
         .then((response)=>{
@@ -93,21 +97,21 @@ const StudentList = () => {
         </div>
       <div className='d-flex justify-content-center align-items-center m-5'>
       
-      <div className="table-container">
+      <div className="table_container">
       <table className='table table-bordered border-primary'>
             <thead>
-           <tr>
-           <th>Enroll No</th>
-                <th>ROLL No.</th>
-                <th>Full Name</th>
-                <th>Email ID</th>
-                <th>Mobile No</th>
-                <th>Date Of Birth</th>
-                <th>Student Status</th>
-                <th>Action</th>
-           </tr>
-                </thead>
-                <tbody>
+                <tr>
+                <th>Enroll No</th>
+                        <th>ROLL No.</th>
+                        <th>Full Name</th>
+                        <th>Email ID</th>
+                        <th>Mobile No</th>
+                        <th>Date Of Birth</th>
+                        <th>Student Status</th>
+                        <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
                     {
                         data.map((stList,index)=>{
                             return <tr key={index}>
@@ -117,7 +121,8 @@ const StudentList = () => {
                     <td>{stList.full_name}</td>
                     <td>{stList.email}</td>
                     <td>{stList.mobile}</td>
-                    <td><Userdob dob ={stList.dob } /> </td>
+                    {/* <td><dateFormate.Userdob dob ={stList.dob } /> </td> */}
+                    <td>{stList.dob } </td>
                     <td>{stList.status}</td>
                     <td>
                         <Link to={`/readStudent/${stList.student_info_id}`} className='btn btn-success mx-1'>Attendance</Link>
@@ -132,7 +137,7 @@ const StudentList = () => {
                     <tr>
                   
                     </tr>
-                </tbody>
+            </tbody>
            
         </table>
       </div>

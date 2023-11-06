@@ -1,6 +1,7 @@
 .table-container {
     width: 100%;
     overflow: auto;
+    max-height: 400px; 
   }
   
   table {
@@ -10,28 +11,34 @@
   
   thead {
     background-color: #f0f0f0;
-  }
-  
-  thead, tbody {
-    display: block;
-  }
-  
-  th, td {
-    padding: 8px;
-    text-align: left;
+    position: sticky;
+    top: 0;
+    z-index: 1;
   }
   
   th {
-    position: sticky;
-    top: 0;
+    text-align: left;
+    padding: 10px;
   }
   
   tbody {
-    max-height: 300px; /* Set the desired height for the scrollable body */
-    overflow-y: scroll;
+    max-height: 300px; 
+    overflow-y: auto;
   }
   
   tr:nth-child(even) {
     background-color: #f2f2f2;
   }
   
+  .table_container{
+    overflow: auto;
+    height: 400px;
+  }
+
+   
+  .table_container thead th{
+    position: sticky;
+    top: 0;
+  }
+
+

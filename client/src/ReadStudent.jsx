@@ -13,7 +13,13 @@ const ReadStudent = () => {
     
       })
     const navigate = useNavigate()
-    const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhcm92YXIiLCJpYXQiOjE2OTg2NTkxMTN9.HzBBzCVWYrkAoczpbgYoGj_ypaB5t5MX05mczFRA9VI"
+    const token = localStorage.getItem('token');
+    useEffect(()=>{
+  if(!token){
+    navigate('/')
+  }
+    },[navigate,token])
+    // const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhcm92YXIiLCJpYXQiOjE2OTg2NTkxMTN9.HzBBzCVWYrkAoczpbgYoGj_ypaB5t5MX05mczFRA9VI"
     
     const headers = {
       'Authorization': `${token}`,
@@ -22,9 +28,9 @@ const ReadStudent = () => {
 
     useEffect(()=>{
         axios.get(`http://localhost:9000/api/student/read/${id}`,{headers})
-        .then((response)=>{setStudent(response.data)})
+        // .then((response)=>{setStudent(response.data)})
         .catch((error)=>console.log(error))
-    },[])
+    },[id,headers]);
 //http://localhost:9000/api/student/attedance/
     const handleCreateAttendance=(event) => {
         event.preventDefault()

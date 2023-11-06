@@ -12,15 +12,15 @@ const AddStudent = () => {
 
   })
   const navigate = useNavigate()
+  const token = localStorage.getItem('token');
   useEffect(()=>{
-if(!localStorage.getItem('token')){
+if(!token){
   navigate('/')
 }
-  },[])
+  },[navigate,token])
 
   const handleAddStudent=(event) => {
     event.preventDefault()
-    const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhcm92YXIiLCJpYXQiOjE2OTg0OTA3ODJ9.ZxC81FMSfXUrgTNOq3oae2U9v6epNXS1iAgbivo_ETQ"
     
     const headers = {
       'Authorization': `${token}`,

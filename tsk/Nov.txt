@@ -22,7 +22,7 @@ work Done:==>
 1. dashaboard has been done
 2 .logout
 3. Testing API
-4. Date of birth proper formate on frontend
+4.Date of birth proper formate in frontend i.e invalid date show
 
 
 in Progress:==>
@@ -30,6 +30,7 @@ in Progress:==>
 
 Queries regarding task:==>
 1. Search with filter, ask to Mazz
+2. Date of birth studentList and same date on update show differ
 
 
 Will come==> :
@@ -38,3 +39,18 @@ Will come==> :
 
 
 
+========= Nov 03-11-2023==========
+work Done:==>
+1. meeting done with prashant sir and 3 month's as fresher with 10k
+2. After 3 months salary will be start with original salary
+
+
+in Progress:==>
+1. -----------,
+
+Queries regarding task:==>
+1.-------------
+
+
+Will come==> :
+1.Today, hansonexpreince on other project

@@ -18,6 +18,15 @@ dateUtil.getDbDate = () => {
 dateUtil.getDate = () => {
   return new Date();
 };
+dateUtil.ddmmYYYYFormat = (ddmmyyyDate) => {
+  const date = new Date('2023-10-15T18:30:00.000Z');
+  const ddmmYYYYFormat = new Intl.DateTimeFormat('en-IN', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  }).format(date);
+};
+
 
 
 dateUtil.getDayDate = () =>{

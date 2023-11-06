@@ -53,7 +53,7 @@ userController.teacherLogin= async(req,res) =>{
       
      const tokenData = await create_token(username)
        
-        res.status(200).send({code:"200",status:"success", message: 'Login successful',result: {token: tokenData}});  
+        res.status(200).send({code:"200",status:"success", message: 'Login successful',result: {token: tokenData,username}});  
     } catch (error) {
         res.status(500).send({ message:"server internal error while login" , error: error });
     }
@@ -161,7 +161,13 @@ userController.studentGetDetailsList = async (req,res) => {
         } else if (!result || result.length === 0) {
             res.status(404).send({ code: "404", message: "Data not found" });
         } else {
-            res.status(200).send({ code: "200", message: "Records of students successfully", result: result });
+            result.forEach((item) => {
+                const dobDate = new Date(item.dob);
+                const formattedDOB = dobDate.toLocaleDateString('en-US');
+                item.dob = formattedDOB;
+            });
+            res.status(200).send({ code: "200", message: "Records of students successfully", result: result});
+
         }
     })
     } catch (error) {
@@ -181,6 +187,9 @@ userController.individualRead = async (req,res) => {
         } else if (!result || result.length === 0) {
             res.status(404).send({ code: "404", message: "Data not found" });
         } else {
+             // Convert date format before sending the response
+             result[0].dob = new Date(result[0].dob).toISOString().split('T')[0];
+
             res.status(200).send({ code: "200", message: "Records of students successfully", result: result[0] });
         }
     })
@@ -222,7 +231,6 @@ SET roll_no = '${roll_no}',
     dob = '${dob}',
     status = '${status}'
 WHERE student_info_id = ${id};
-
 `
 pool.query(sql, function (err,results){
  if (results){
@@ -271,8 +279,8 @@ pool.query(sql, function (err,results) {
 userController.studentGetattendance = async(req,res)=>{
 try {
     const {id}= req.params;
-const {attendanceStatus} = req.body
-
+const attendanceStatus = req.body.attendanceStatus;
+// console.log(attendanceStatus);
 // const {attendanceStauts}= req.query
 let sql = `
 
@@ -322,6 +330,7 @@ pool.query(sql, function(err, rows) {
     }else if (!rows){
         res.status(404).send({code: "404", message:"No Data Found"})
     } else{
+        
         res.status(200).send({code: "200", message:"successfully get all data", result:rows});
     }
 })

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 const UdateStudent = () => {
     const [values, setValues] = useState({
@@ -14,8 +14,13 @@ const UdateStudent = () => {
     console.log(values);
       const navigate = useNavigate()
       const {id} = useParams()
-      const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhcm92YXIiLCJpYXQiOjE2OTg2NTkxMTN9.HzBBzCVWYrkAoczpbgYoGj_ypaB5t5MX05mczFRA9VI"
-    
+      const token = localStorage.getItem('token');
+      useEffect(()=>{
+    if(!token){
+      navigate('/')
+    }
+      },[navigate, token])
+  
       const headers = {
         'Authorization': `${token}`,
         'Content-Type': 'application/json',
@@ -26,6 +31,7 @@ const UdateStudent = () => {
         axios.get(`http://localhost:9000/api/student/read/${id}`, { headers })
             .then((response) => {
                 const studentData = response.data.result;
+                console.log(studentData);
                 // setValues({ ...studentData });
                 setValues(studentData);
             })
@@ -92,7 +98,6 @@ const UdateStudent = () => {
                  className='form-control rounded-0'
                  value={values.dob}
                  onChange={e=>setValues({...values, dob: e.target.value})}
-                
                  />
             </div>
             <div className='mb-3'>
@@ -103,14 +108,14 @@ const UdateStudent = () => {
                         className='form-control rounded-0'
                         name='status'
                       >
-                        <option value="">Select Status</option>
+                        <option value="">{values.status}</option>
                         <option value="active">ACTIVE</option>
                         <option value="suspended">SUSPENDED</option>
                         <option value="terminate">TERMINATE</option>
                    </select>
             </div>
             <button type='submit' className='btn btn-success w-100 rounded-0' >Update</button>
-
+                <Link to={'/studentList'} >Go To Student List</Link>
         </form>
         
     </div>

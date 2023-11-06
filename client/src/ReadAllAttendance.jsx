@@ -1,19 +1,23 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 
 const ReadAllAttendance = () => {
     const[data,setData]= useState([])
     const {id} = useParams()
-console.log(id);
 const[values,setValues] = useState({
     attendanceStatus:""
 
   })
-console.log(values);
-//     // const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbmFuIiwiaWF0IjoxNjk4MzIyOTM4fQ.d16JmJhBXUrS_kg02a9Q156VqDLfab_WCoyIUmSQGhE"
-   const token= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhcm92YXIiLCJpYXQiOjE2OTg2NTkxMTN9.HzBBzCVWYrkAoczpbgYoGj_ypaB5t5MX05mczFRA9VI"
+  const navigate = useNavigate()
+  const token = localStorage.getItem('token');
+        useEffect(()=>{
+        if(!token){
+        navigate('/')
+        }
+        },[navigate,token]
+        )
 
       const headers = {
         'Authorization': `${token}`,
@@ -38,7 +42,7 @@ console.log(values);
                         className='form-control rounded-0'
                         name='attendanceStatus'
                       >
-                        <option value="">Select Status</option>
+                        <option value="">All</option>
                         <option value="present">Present</option>
                         <option value="absent">Absent</option>
                         
